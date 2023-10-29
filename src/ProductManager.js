@@ -86,6 +86,70 @@ productManager.addProduct({
     stock: 50,
   });
 
+  productManager.addProduct({
+    title: 'Tabaco sabor menta 50g',
+    description: 'Tabaco con el mejor saborizante a menta fresca',
+    price: 250,
+    code: 'P3',
+    stock: 50,
+  });
+
+  productManager.addProduct({
+    title: 'Tabaco sabor frutos rojos 50g',
+    description: 'Tabaco con el mejor saborizante natural a frutos rojos',
+    price: 250,
+    code: 'P4',
+    stock: 30,
+  });
+
+  productManager.addProduct({
+    title: 'Tabaco sabor uva 50g',
+    description: 'Tabaco con el mejor saborizante a uva merlot',
+    price: 250,
+    code: 'P5',
+    stock: 50,
+  });  
+
+  productManager.addProduct({
+    title: 'Tabaco sabor miel 100g',
+    description: 'Tabaco con el mejor saborizante a miel natural',
+    price: 500,
+    code: 'P6',
+    stock: 40,
+  });
+
+  productManager.addProduct({
+    title: 'Tabaco sabor menta 100g',
+    description: 'Tabaco con el mejor saborizante a menta fresca',
+    price: 500,
+    code: 'P7',
+    stock: 40,
+  });  
+
+  productManager.addProduct({
+    title: 'Tabaco sabor frutos rojos 100g',
+    description: 'Tabaco con el mejor saborizante natural a frutos rojos',
+    price: 500,
+    code: 'P8',
+    stock: 20,
+  });
+
+  productManager.addProduct({
+    title: 'Tabaco sabor uva 100g',
+    description: 'Tabaco con el mejor saborizante a uva merlot',
+    price: 500,
+    code: 'P9',
+    stock: 40,
+  });   
+
+  productManager.addProduct({
+    title: 'Hojillas XL',
+    description: 'Hojillas tamaño XL con pegamento natural',
+    price: 150,
+    code: 'P10',
+    stock: 70,
+  }); 
+
 const allProducts = productManager.getProducts();
 console.log(allProducts);
 
@@ -105,3 +169,5 @@ productManager.updateProduct(productId, updatedProduct);
 
 const productIdToDelete = 1;
 productManager.deleteProduct(productIdToDelete);
+
+module.exports = ProductManager;

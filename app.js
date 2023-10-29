@@ -1,12 +1,12 @@
 const express = require('express');
-const ProductManager = require('./ProductManager');
+const ProductManager = require('./src/ProductManager');
 
 const app = express();
 const port = 3000; 
-
+const bodyParser = require('body-parser')
 app.use(express.json());
 
-const productManager = new ProductManager(); /
+const productManager = new ProductManager(); 
 
 app.get('/products', async (req, res) => {
   try {
