@@ -6,16 +6,13 @@ class ProductManager {
     }
 
     addProduct(product) {
-        const products = this.getProducts();
-        if (!products) {
-            product.id = this.getNextId(products);
-            products.push(product);
-        } else {
-            product.id = 1;
-            products.push(product);
-        }
-        this.saveProducts(products);
-    }
+      const products = this.getProducts();
+      if (!products) {
+      products = [];}
+      product.id = this.getNextId(products);
+      products.push(product);  
+      this.saveProducts(products);
+    } 
 
     getProducts() {
         try {
@@ -67,7 +64,7 @@ class ProductManager {
     }
 }
 
-const productManager = new ProductManager('products.json');
+const productManager = new ProductManager('./products.json');
 
 const newProduct = {
     title: 'Hojillas',
