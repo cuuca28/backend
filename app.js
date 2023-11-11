@@ -13,43 +13,36 @@ const fs = require('fs');
 const existingProductIds = [];
 const existingCartIds = [];
 
-
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('¡Fin!\n');
-});
+const app = express();
 
 const PORT = 8080;
+ 
+app.use(express.urlencoded({extended:true}));//agregado
 
-server.listen(PORT, () => {
-  console.log(`El servidor está escuchando en el puerto ${PORT}`);
-});
-
-const app = express(); 
-const bodyParser = require('body-parser')
 app.use(express.json());
 
-const productManager = new ProductManager(); 
+app.listen(PORT, () => {
 
-app.get('/api/products', async (req, res) => {
+console.log(`Servidor Express en ejecución en el puerto ${PORT}`);
+
+});
+
+const productManager = new ProductManager('products.json'); 
+
+app.get('/api/products/:id', async (req, res) => {
   try {
-  const product = await productManager.getProducts();
-  const limited = req.query.limit;
-  if (limited) {
-  const limitedProducts = product.slice (0,limited);
-  res.json(limitedProducts);
-  } else {
-  res.json(product);
-  }
+    const products = await productManager.getProducts();
+    const productId = parseInt (req.params.id);  
+    const product = products.find((p) => p.id === productId);
+    if (product) {
+      res.json(product);
+    } else {
+    res.status(404).json ({ mensaje: 'Producto no encontrado' });
+    }
   } catch (error) {
   res.status(500).send('Error al leer archivo');
   }
   });
-
-app.listen(PORT, () => {
-  console.log(`Servidor Express en ejecución en el puerto ${PORT}`);
-});
-
 
 app.post('/agregar-producto', (req, res) => {
   const newProduct = req.body;
