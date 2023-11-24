@@ -12,12 +12,22 @@ const http = require('http');
 const fs = require('fs');
 const existingProductIds = [];
 const existingCartIds = [];
+const server = require ("http").Server(app);
+const io = require("socket.io")(server);
 
 const app = express();
 
 const PORT = 8080;
  
-app.use(express.urlencoded({extended:true}));//agregado
+app.use(express.static('src/public'));
+
+let messages = [
+  {
+    id:1,
+    text: "Hola soy un mensaje",
+    author: "Romina"
+  }
+]
 
 app.use(express.json());
 
@@ -70,3 +80,14 @@ app.delete('/eliminar-del-carrito/:producto', (req, res) => {
   }
 });
 
+io.on("connection", (socket)=> {
+  console.log("Un cliente se ha conectado");
+  socket.emit("messages", messages);
+
+  socket.on("newMessage", (data)=>{
+    data.id = messages.lenght + 1;
+    messages.push(data);
+    
+    io.emit("messages", messages);
+  });
+})
